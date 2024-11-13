@@ -1,20 +1,18 @@
 'use client';
-import { Toaster } from 'sonner';
+import { Toaster } from 'react-hot-toast';
 
 export const ToastProvider = () => {
   return (
     <Toaster
-      position="bottom-center"
+      position="bottom-right"
       toastOptions={{
         style: {
-          background: 'hsl(var(--background))',
+          fontSize: 14,
+          fontWeight: 500,
           color: 'hsl(var(--foreground))',
           border: '1px solid hsl(var(--border))',
-          // fontFamily: '--irsans',
-        },
-        classNames: {
-          toast: 'shadow',
-          icon: 'text-emerald-500',
+          backgroundColor: 'hsl(var(--card))',
+          borderRadius: 'var(--radius)',
         },
       }}
     />
