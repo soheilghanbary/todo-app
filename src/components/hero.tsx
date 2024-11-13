@@ -3,7 +3,7 @@ import { Button } from './ui/button';
 
 export function Hero() {
   return (
-    <div className="flex flex-col items-center justify-center gap-2 py-20">
+    <div className="flex flex-col items-center justify-center gap-2 py-8 text-center lg:py-20">
       <h1 className="font-black text-4xl/snug">
         TodoNext: The Minimal Todo App
       </h1>
