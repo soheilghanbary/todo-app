@@ -4,7 +4,7 @@ import { Toaster } from 'react-hot-toast';
 export const ToastProvider = () => {
   return (
     <Toaster
-      position="bottom-right"
+      position="top-center"
       toastOptions={{
         style: {
           fontSize: 14,

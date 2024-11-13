@@ -1,4 +1,5 @@
 import '@/assets/app.css';
+import { Footer } from '@/components/footer';
 import { Header } from '@/components/header';
 import Providers from '@/components/providers';
 import { siteConfig } from '@/config/site';
@@ -39,10 +40,11 @@ export default function RootLayout({ children }: PropsWithChildren) {
       </head>
       <body>
         <Providers>
-          <main className="container space-y-4 p-2 lg:p-4">
+          <main className="container min-h-screen space-y-4 p-2 lg:p-4">
             <Header />
             {children}
           </main>
+          <Footer />
         </Providers>
       </body>
     </html>
