@@ -1,19 +1,13 @@
 'use client';
 import { useCharacterLimit } from '@/hooks/use-character-limit';
-import { useAddTodo } from '@/hooks/use-todo';
+import { useAddTodo } from '@/hooks/use-todos';
+import { generateId } from '@/lib/utils';
 import { PlusCircleIcon } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { z } from 'zod';
 import { LoadingIcon } from './common/icons';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
-
-const schema = z.object({
-  title: z.string().min(1),
-});
-
-type FormData = z.infer<typeof schema>;
 
 export function AddTodo() {
   const maxLength = 30;
@@ -28,15 +22,16 @@ export function AddTodo() {
 
   const onSubmit = async () => {
     if (!value) return;
-    await mutateAsync(
-      { title: value },
-      {
-        onSettled: () => {
-          toast.success('Todo added successfully');
-          clear();
-        },
-      },
-    );
+
+    const newTask = {
+      id: generateId(),
+      title: value,
+      completed: false,
+    };
+
+    clear();
+
+    return await mutateAsync(newTask);
   };
 
   return (

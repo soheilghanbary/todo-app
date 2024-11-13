@@ -12,7 +12,7 @@ import {
   useCompleteTodo,
   useDeleteTodo,
   useTodos,
-} from '@/hooks/use-todo';
+} from '@/hooks/use-todos';
 import { cn, fromNow } from '@/lib/utils';
 import type { Task } from '@prisma/client';
 import { FilterIcon, Trash2Icon } from 'lucide-react';
@@ -43,14 +43,7 @@ const CompleteTodo = ({ id = '', completed = false }) => {
 
 const DeleteTodo = ({ id = '' }) => {
   const { mutateAsync, isPending } = useDeleteTodo();
-
-  const handleDelete = async () => {
-    await mutateAsync(id, {
-      onSettled: () => {
-        toast.success('Todo deleted successfully');
-      },
-    });
-  };
+  const handleDelete = async () => await mutateAsync(id);
 
   return (
     <Button

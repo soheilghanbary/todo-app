@@ -10,11 +10,11 @@ export async function getTodos() {
   });
 }
 
-export async function createTodo(title: string) {
+export async function createTodo(data: AddTaskProps) {
   const session = await auth();
   return await prisma.task.create({
     data: {
-      title,
+      ...data,
       userId: session?.user.id!,
     },
   });
