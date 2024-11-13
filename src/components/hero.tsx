@@ -10,9 +10,20 @@ export function Hero() {
       <p className="text-lg text-muted-foreground">
         This Project made by Next.js 15 & Prisma & Server Action
       </p>
-      <Button variant={'outline'} size={'lg'} className="mt-4 rounded-full">
-        <RocketIcon />
-        Get Started
+      <Button
+        asChild
+        size={'lg'}
+        className="mt-4 rounded-full"
+        variant={'outline'}
+      >
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href="https://github.com/soheilghanbary/todonext"
+        >
+          <RocketIcon />
+          Source Code
+        </a>
       </Button>
     </div>
   );
