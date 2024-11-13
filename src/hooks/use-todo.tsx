@@ -1,4 +1,5 @@
 import {
+  clearTodos,
   createTodo,
   deleteTodo,
   doneTodos,
@@ -38,6 +39,16 @@ export const useCompleteTodo = () => {
   return useMutation({
     mutationFn: ({ id, completed }: { id: string; completed: boolean }) =>
       doneTodos(id, completed),
+    onSuccess() {
+      qc.invalidateQueries({ queryKey: ['todos'] });
+    },
+  });
+};
+
+export const useClearTodos = () => {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: () => clearTodos(),
     onSuccess() {
       qc.invalidateQueries({ queryKey: ['todos'] });
     },

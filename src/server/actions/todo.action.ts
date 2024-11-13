@@ -41,3 +41,10 @@ export const doneTodos = async (id: string, completed: boolean) => {
     data: { completed },
   });
 };
+
+export const clearTodos = async () => {
+  const session = await auth();
+  return await prisma.task.deleteMany({
+    where: { userId: session?.user.id },
+  });
+};

@@ -1,8 +1,7 @@
 'use client';
+import { useCharacterLimit } from '@/hooks/use-character-limit';
 import { useAddTodo } from '@/hooks/use-todo';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { PlusCircleIcon } from 'lucide-react';
-import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { z } from 'zod';
 import { LoadingIcon } from './common/icons';
@@ -17,56 +16,69 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export function AddTodo() {
-  const { mutateAsync, isPending } = useAddTodo();
+  const maxLength = 30;
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<FormData>({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      title: '',
-    },
-  });
+    value,
+    characterCount,
+    handleChange,
+    maxLength: limit,
+    clear,
+  } = useCharacterLimit({ maxLength });
+  const { mutateAsync, isPending } = useAddTodo();
 
-  const onSubmit = handleSubmit(async (data) => {
-    await mutateAsync(data, {
-      onSettled: () => {
-        toast.success('Todo added successfully');
-        reset();
+  const onSubmit = async () => {
+    if (!value) return;
+    await mutateAsync(
+      { title: value },
+      {
+        onSettled: () => {
+          toast.success('Todo added successfully');
+          clear();
+        },
       },
-    });
-  });
+    );
+  };
 
   return (
-    <form onSubmit={onSubmit}>
-      <div className="flex items-end justify-center gap-2">
-        <div className="flex flex-1 flex-col gap-2">
-          <Label htmlFor="task" className="w-fit">
-            Task
-          </Label>
+    <div className="flex items-end justify-center gap-2">
+      <div className="flex flex-1 flex-col gap-2">
+        <Label htmlFor="task" className="w-fit">
+          Task
+        </Label>
+        <div className="relative">
           <Input
-            id="task"
+            id="input-34"
+            className="peer pe-14"
             type="text"
-            className="bg-card"
-            placeholder="enter task title"
-            error={errors.title?.message}
-            {...register('title')}
+            value={value}
+            maxLength={maxLength}
+            onChange={handleChange}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                onSubmit();
+              }
+            }}
+            aria-describedby="character-count"
+            placeholder="enter task"
           />
+          <div
+            id="character-count"
+            className="pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-muted-foreground text-xs tabular-nums peer-disabled:opacity-50"
+            aria-live="polite"
+            role="status"
+          >
+            {characterCount}/{limit}
+          </div>
         </div>
-        <Button type="submit" disabled={isPending}>
-          {isPending ? (
-            <LoadingIcon className="fill-primary-foreground" />
-          ) : (
-            <PlusCircleIcon />
-          )}
-          Add
-        </Button>
       </div>
-      {errors.title?.message && (
-        <p className="mt-2 text-destructive text-xs">{errors.title?.message}</p>
-      )}
-    </form>
+      <Button type="button" onClick={onSubmit} disabled={isPending}>
+        {isPending ? (
+          <LoadingIcon className="fill-primary-foreground" />
+        ) : (
+          <PlusCircleIcon />
+        )}
+        Add
+      </Button>
+    </div>
   );
 }

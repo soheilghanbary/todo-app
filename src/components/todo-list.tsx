@@ -7,7 +7,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useCompleteTodo, useDeleteTodo, useTodos } from '@/hooks/use-todo';
+import {
+  useClearTodos,
+  useCompleteTodo,
+  useDeleteTodo,
+  useTodos,
+} from '@/hooks/use-todo';
 import { cn, fromNow } from '@/lib/utils';
 import type { Task } from '@prisma/client';
 import { FilterIcon, Trash2Icon } from 'lucide-react';
@@ -39,8 +44,8 @@ const CompleteTodo = ({ id = '', completed = false }) => {
 const DeleteTodo = ({ id = '' }) => {
   const { mutateAsync, isPending } = useDeleteTodo();
 
-  const handleDelete = () => {
-    mutateAsync(id, {
+  const handleDelete = async () => {
+    await mutateAsync(id, {
       onSettled: () => {
         toast.success('Todo deleted successfully');
       },
@@ -73,7 +78,8 @@ const TodoItem = (task: Task) => (
           'text-muted-foreground line-through': task.completed,
         })}
       >
-        <CompleteTodo id={task.id} completed={task.completed} /> {task.title}
+        <CompleteTodo id={task.id} completed={task.completed} />{' '}
+        <p>{task.title}</p>
       </label>
       <Separator className="bg-border/40" />
       <div className="flex items-center justify-between gap-2">
@@ -111,6 +117,29 @@ const FilterTodo = () => {
   );
 };
 
+function ClearTodos() {
+  const { isPending, mutateAsync } = useClearTodos();
+
+  const handleClick = () => {
+    mutateAsync(undefined, {
+      onSuccess: () => {
+        toast.success('Cleared all tasks');
+      },
+    });
+  };
+
+  return (
+    <button
+      type="button"
+      className="text-[10px] text-muted-foreground"
+      disabled={isPending}
+      onClick={handleClick}
+    >
+      Clear
+    </button>
+  );
+}
+
 export function TodoList() {
   const [filter, setFilter] = useQueryState('filter');
   const { data: todos, isPending } = useTodos(filter);
@@ -120,14 +149,17 @@ export function TodoList() {
 
   return (
     <>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2">
         <FilterTodo />
-        <h2 className="font-medium text-sm">{todos?.length} Tasks</h2>
+        <ClearTodos />
+        <h2 className="flex-1 text-right font-medium text-sm">
+          {todos?.length} Tasks
+        </h2>
       </div>
       <div className="flex flex-col gap-2">
         {!todos?.length ? (
           <p className="my-4 text-center text-foreground/80 text-sm">
-            Empty Tasks 😒
+            Empty Tasks 🫡
           </p>
         ) : (
           todos?.map((t) => <TodoItem key={t.id} {...t} />)
