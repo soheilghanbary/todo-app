@@ -7,15 +7,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import {
-  useClearTodos,
-  useCompleteTodo,
-  useDeleteTodo,
-  useTodos,
-} from '@/hooks/use-todos';
+import { useClearTodos, useCompleteTodo, useTodos } from '@/hooks/use-todos';
 import { cn, fromNow } from '@/lib/utils';
 import type { Task } from '@prisma/client';
-import { FilterIcon, Trash2Icon } from 'lucide-react';
+import { FilterIcon } from 'lucide-react';
 import { useQueryState } from 'nuqs';
 import toast from 'react-hot-toast';
 import { LoadingIcon } from './common/icons';
@@ -25,42 +20,15 @@ import { Separator } from './ui/separator';
 const CompleteTodo = ({ id = '', completed = false }) => {
   const { mutateAsync, isPending } = useCompleteTodo();
 
-  const handleComplete = () => {
-    mutateAsync(
-      { id, completed: !completed },
-      {
-        onSettled: () => {
-          toast.success('Todo completed successfully');
-        },
-      },
-    );
-  };
+  const handleComplete = async () =>
+    await mutateAsync({ id, completed: !completed });
 
   return (
     <Checkbox id={id} checked={completed} onCheckedChange={handleComplete} />
   );
 };
 
-const DeleteTodo = ({ id = '' }) => {
-  const { mutateAsync, isPending } = useDeleteTodo();
-  const handleDelete = async () => await mutateAsync(id);
-
-  return (
-    <Button
-      size={'icon'}
-      variant={'outline'}
-      onClick={handleDelete}
-      disabled={isPending}
-      className="size-8 text-destructive hover:text-destructive"
-    >
-      {isPending ? (
-        <LoadingIcon className="fill-destructive" />
-      ) : (
-        <Trash2Icon />
-      )}
-    </Button>
-  );
-};
+const DeleteTodo = ({ id = '' }) => {};
 
 const TodoItem = (task: Task) => (
   <div className="rounded-md border bg-card p-2 shadow-sm">
