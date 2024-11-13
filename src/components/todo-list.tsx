@@ -141,11 +141,17 @@ function ClearTodos() {
 }
 
 export function TodoList() {
-  const [filter, setFilter] = useQueryState('filter');
-  const { data: todos, isPending } = useTodos(filter);
+  const [filter, _] = useQueryState('filter');
+  const { data: todos, isPending } = useTodos();
 
   if (isPending)
     return <LoadingIcon className="mx-auto my-8 size-5 fill-primary" />;
+
+  const filteredTodos = todos?.filter((todo) => {
+    if (filter === 'completed') return todo.completed;
+    if (filter === 'not') return !todo.completed;
+    return true; // 'all' or undefined returns all todos
+  });
 
   return (
     <>
@@ -153,16 +159,16 @@ export function TodoList() {
         <FilterTodo />
         <ClearTodos />
         <h2 className="flex-1 text-right font-medium text-sm">
-          {todos?.length} Tasks
+          {filteredTodos?.length} Tasks
         </h2>
       </div>
       <div className="flex flex-col gap-2">
-        {!todos?.length ? (
+        {!filteredTodos?.length ? (
           <p className="my-4 text-center text-foreground/80 text-sm">
             Empty Tasks 🫡
           </p>
         ) : (
-          todos?.map((t) => <TodoItem key={t.id} {...t} />)
+          filteredTodos?.map((t) => <TodoItem key={t.id} {...t} />)
         )}
       </div>
     </>

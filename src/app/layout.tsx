@@ -39,7 +39,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       </head>
       <body>
         <Providers>
-          <main className="container space-y-4 p-4">
+          <main className="container space-y-4 p-2 lg:p-4">
             <Header />
             {children}
           </main>

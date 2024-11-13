@@ -7,6 +7,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/components/ui/drawer';
+import { useMediaQuery } from '@/hooks/use-media-query';
 import { onSignIn } from '@/server/actions/auth.action';
 import { LogInIcon } from 'lucide-react';
 import type React from 'react';
@@ -54,24 +65,57 @@ const Auth = () => {
 };
 
 export function AuthModal() {
+  const [open, setOpen] = useState(false);
+  const isDesktop = useMediaQuery('(min-width: 768px)');
+
+  if (isDesktop) {
+    return (
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button>
+            <LogInIcon />
+            Sign In
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Sign In your Account</DialogTitle>
+            <DialogDescription>
+              Sign in to your account to continue.
+            </DialogDescription>
+          </DialogHeader>
+          <TextLine text="Sign in with" />
+          <Auth />
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
   return (
-    <Dialog>
-      <DialogTrigger asChild>
+    <Drawer>
+      <DrawerTrigger asChild>
         <Button>
           <LogInIcon />
           Sign In
         </Button>
-      </DialogTrigger>
-      <DialogContent className="max-w-sm">
-        <DialogHeader>
-          <DialogTitle>Sign In your Account</DialogTitle>
-          <DialogDescription>
+      </DrawerTrigger>
+      <DrawerContent>
+        <DrawerHeader>
+          <DrawerTitle>Sign In your Account</DrawerTitle>
+          <DrawerDescription>
             Sign in to your account to continue.
-          </DialogDescription>
-        </DialogHeader>
-        <TextLine text="Sign in with" />
-        <Auth />
-      </DialogContent>
-    </Dialog>
+          </DrawerDescription>
+        </DrawerHeader>
+        <div className="space-y-4 px-4">
+          <TextLine text="Sign in with" />
+          <Auth />
+        </div>
+        <DrawerFooter>
+          <DrawerClose asChild>
+            <Button variant="outline">Close</Button>
+          </DrawerClose>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
   );
 }

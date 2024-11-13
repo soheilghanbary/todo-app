@@ -2,14 +2,10 @@
 import { auth } from '../auth';
 import { prisma } from '../db';
 
-export async function getTodos(filter: string | null) {
+export async function getTodos() {
   const session = await auth();
   return await prisma.task.findMany({
-    where: {
-      userId: session?.user.id,
-      completed:
-        filter === 'completed' ? true : filter === 'not' ? false : undefined, // If filter is "all" or null, it retrieves all tasks
-    },
+    where: { userId: session?.user.id },
     orderBy: { createdAt: 'desc' },
   });
 }

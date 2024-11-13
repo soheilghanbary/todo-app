@@ -7,10 +7,10 @@ import {
 } from '@/server/actions/todo.action';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-export const useTodos = (filter: string | null) => {
+export const useTodos = () => {
   return useQuery({
-    queryKey: ['todos', filter],
-    queryFn: () => getTodos(filter),
+    queryKey: ['todos'],
+    queryFn: getTodos,
   });
 };
 
