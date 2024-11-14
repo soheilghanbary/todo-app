@@ -38,9 +38,6 @@ export const useAddTodo = () => {
     onError: (err, newTodo, context) => {
       qc.setQueryData(['todos'], context?.previousTodos);
     },
-    onSuccess() {
-      qc.invalidateQueries({ queryKey: ['todos'] });
-    },
   });
 };
 
@@ -59,9 +56,6 @@ export const useDeleteTodo = () => {
     },
     onError: (err, id, context) => {
       qc.setQueryData(['todos'], context?.previousTodos);
-    },
-    onSuccess() {
-      qc.invalidateQueries({ queryKey: ['todos'] });
     },
   });
 };
@@ -84,9 +78,6 @@ export const useCompleteTodo = () => {
     onError: (err, { id, completed }, context) => {
       qc.setQueryData(['todos'], context?.previousTodos);
     },
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['todos'] });
-    },
   });
 };
 
@@ -102,9 +93,6 @@ export const useClearTodos = () => {
     },
     onError: (err, variables, context) => {
       qc.setQueryData(['todos'], context?.previousTodos);
-    },
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['todos'] });
     },
   });
 };
