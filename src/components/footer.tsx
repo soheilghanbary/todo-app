@@ -4,10 +4,10 @@ export function Footer() {
       <p className="text-muted-foreground text-xs">
         Developed by{' '}
         <a
-          className="font-medium text-foreground underline"
           target="_blank"
           rel="noreferrer"
           href="https://soheilghanbary.ir"
+          className="font-medium text-foreground underline decoration-wavy underline-offset-4"
         >
           Soheil Ghanbary
         </a>

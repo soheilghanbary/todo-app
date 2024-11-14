@@ -1,5 +1,4 @@
 import { auth } from '@/server/auth';
-import { FileText } from 'lucide-react';
 import Link from 'next/link';
 import { AuthModal } from './auth-modal';
 import { ModeToggle } from './common/mode-toggle';
@@ -7,8 +6,7 @@ import { UserProfile } from './user-profile';
 
 const Logo = () => (
   <Link href={'/'} className="flex items-center gap-1">
-    <FileText className="size-5" strokeWidth={2} />
-    <p className="font-bold">TodoNext</p>
+    <p className="font-extrabold">TodoNext</p>
   </Link>
 );
 
