@@ -1,12 +1,10 @@
 'use client';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 import {
   useClearTodos,
   useCompleteTodo,
@@ -18,6 +16,7 @@ import NumberFlow from '@number-flow/react';
 import type { Task } from '@prisma/client';
 import { FilterIcon, Trash2Icon } from 'lucide-react';
 import { useQueryState } from 'nuqs';
+import { type MouseEvent, useState } from 'react';
 import toast from 'react-hot-toast';
 import { LoadingIcon } from './common/icons';
 import { Button } from './ui/button';
@@ -79,27 +78,55 @@ const TodoItem = (task: Task) => (
 );
 
 const FilterTodo = () => {
+  const [open, setOpen] = useState(false);
   const [filter, setFilter] = useQueryState('filter');
+
+  const handleFilter = (e: MouseEvent<HTMLButtonElement>) => {
+    if (e.currentTarget.name === 'all') {
+      setFilter(null);
+    } else {
+      setFilter(e.currentTarget.name);
+    }
+    setOpen(false);
+  };
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
         <Button variant={'flat'} size={'sm'}>
           <FilterIcon />
           Filter
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="start">
-        <DropdownMenuItem onClick={() => setFilter(null)}>All</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => setFilter('completed')}>
-          Completed
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => setFilter('not')}>
-          not completed
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+      </PopoverTrigger>
+      <PopoverContent align="start" className="w-fit p-2">
+        <div className="flex flex-col gap-2">
+          <Button
+            name="all"
+            size={'sm'}
+            variant={'flat'}
+            onClick={handleFilter}
+          >
+            All
+          </Button>
+          <Button
+            size={'sm'}
+            name="completed"
+            variant={'flat'}
+            onClick={handleFilter}
+          >
+            Completed
+          </Button>
+          <Button
+            name="not"
+            size={'sm'}
+            variant={'flat'}
+            onClick={handleFilter}
+          >
+            Un Completed
+          </Button>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 };
 
@@ -121,7 +148,7 @@ function ClearTodos() {
       disabled={isPending}
       onClick={handleClick}
     >
-      Clear
+      Clear Tasks
     </button>
   );
 }
@@ -144,7 +171,7 @@ export function TodoList() {
       <div className="flex items-center justify-between gap-2">
         <FilterTodo />
         <ClearTodos />
-        <h2 className="flex-1 text-right font-medium text-sm">
+        <h2 className="text-right font-medium text-sm">
           <NumberFlow
             aria-hidden
             willChange
