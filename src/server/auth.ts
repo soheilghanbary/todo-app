@@ -19,16 +19,7 @@ export const authOptions: NextAuthConfig = {
   trustHost: true,
   session: { strategy: 'jwt' },
   experimental: { enableWebAuthn: true },
-  providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_ID!,
-      clientSecret: process.env.GITHUB_SECRET!,
-    }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_ID!,
-      clientSecret: process.env.GOOGLE_SECRET!,
-    }),
-  ],
+  providers: [GithubProvider, GoogleProvider],
   callbacks: {
     signIn: async ({ user }) => {
       const userExists = await prisma.user.findUnique({

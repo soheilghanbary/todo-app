@@ -55,9 +55,7 @@ const Auth = () => {
         variant={'outline'}
         onClick={handleLogin}
       >
-        {loading.google && (
-          <LoadingIcon className="size-4 fill-primary-foreground" />
-        )}
+        {loading.google && <LoadingIcon className="size-4 fill-primary" />}
         Google
       </Button>
     </div>
