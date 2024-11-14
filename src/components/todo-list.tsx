@@ -14,6 +14,7 @@ import {
   useTodos,
 } from '@/hooks/use-todos';
 import { cn, fromNow } from '@/lib/utils';
+import NumberFlow from '@number-flow/react';
 import type { Task } from '@prisma/client';
 import { FilterIcon, Trash2Icon } from 'lucide-react';
 import { useQueryState } from 'nuqs';
@@ -144,7 +145,13 @@ export function TodoList() {
         <FilterTodo />
         <ClearTodos />
         <h2 className="flex-1 text-right font-medium text-sm">
-          {filteredTodos?.length} Tasks
+          <NumberFlow
+            aria-hidden
+            willChange
+            format={{ useGrouping: false }}
+            value={Number(filteredTodos?.length)}
+          />{' '}
+          Tasks
         </h2>
       </div>
       <div className="flex flex-col gap-2">
