@@ -22,9 +22,13 @@ import { LoadingIcon } from './common/icons';
 import { Button } from './ui/button';
 import { Separator } from './ui/separator';
 
-const CompleteTodo = ({ id = '', completed = false }) => {
-  const { mutateAsync, isPending } = useCompleteTodo();
+type CompleteTodoProps = {
+  id: string;
+  completed: boolean;
+};
 
+const CompleteTodo = ({ id, completed }: CompleteTodoProps) => {
+  const { mutateAsync, isPending } = useCompleteTodo();
   const handleComplete = async () =>
     await mutateAsync({ id, completed: !completed });
 

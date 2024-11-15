@@ -26,7 +26,6 @@ export const useAddTodo = () => {
       qc.setQueryData(['todos'], (oldTodos: any) => [
         {
           ...newTodo,
-          id: Math.random().toString(),
           completed: false,
           createdAt: new Date(),
         },
