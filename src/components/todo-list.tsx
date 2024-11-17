@@ -1,4 +1,5 @@
 'use client';
+
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   Popover,
@@ -15,12 +16,12 @@ import { cn, fromNow } from '@/lib/utils';
 import NumberFlow from '@number-flow/react';
 import type { Task } from '@prisma/client';
 import { FilterIcon, Trash2Icon } from 'lucide-react';
+import { motion } from 'motion/react';
 import { useQueryState } from 'nuqs';
 import { type MouseEvent, useState } from 'react';
 import toast from 'react-hot-toast';
 import { LoadingIcon } from './common/icons';
 import { Button } from './ui/button';
-import { Separator } from './ui/separator';
 
 type CompleteTodoProps = {
   id: string;
@@ -29,22 +30,27 @@ type CompleteTodoProps = {
 
 const CompleteTodo = ({ id, completed }: CompleteTodoProps) => {
   const { mutateAsync, isPending } = useCompleteTodo();
-  const handleComplete = async () =>
+
+  const handleComplete = async () => {
     await mutateAsync({ id, completed: !completed });
+  };
 
   return (
     <Checkbox id={id} checked={completed} onCheckedChange={handleComplete} />
   );
 };
 
-const DeleteTodo = ({ id = '' }) => {
+const DeleteTodo = ({ id }: { id: string }) => {
   const { mutateAsync, isPending } = useDeleteTodo();
-  const handleDelete = async () => await mutateAsync(id);
+
+  const handleDelete = async () => {
+    await mutateAsync(id);
+  };
 
   return (
     <Button
-      size={'icon'}
-      variant={'outline'}
+      size="icon"
+      variant="outline"
       onClick={handleDelete}
       disabled={isPending}
       className="size-8 text-destructive hover:text-destructive"
@@ -58,24 +64,23 @@ const DeleteTodo = ({ id = '' }) => {
   );
 };
 
-const TodoItem = (task: Task) => (
-  <div className="rounded-md border bg-card p-2 shadow-sm">
+const TodoItem = ({ id, title, completed, createdAt }: Task) => (
+  <div className="rounded-md border bg-muted/40 p-2 shadow-sm">
     <div className="flex flex-col gap-2">
       <label
-        htmlFor={task.id}
+        htmlFor={id}
         className={cn('flex w-fit cursor-pointer items-center gap-2 text-sm', {
-          'text-muted-foreground line-through': task.completed,
+          'text-muted-foreground line-through': completed,
         })}
       >
-        <CompleteTodo id={task.id} completed={task.completed} />{' '}
-        <p>{task.title}</p>
+        <CompleteTodo id={id} completed={completed} />
+        <p>{title}</p>
       </label>
-      <Separator className="bg-border/40" />
       <div className="flex items-center justify-between gap-2">
         <p className="flex-1 text-muted-foreground text-xs">
-          {fromNow(task.createdAt)}
+          {fromNow(createdAt)}
         </p>
-        <DeleteTodo id={task.id} />
+        <DeleteTodo id={id} />
       </div>
     </div>
   </div>
@@ -86,62 +91,44 @@ const FilterTodo = () => {
   const [filter, setFilter] = useQueryState('filter');
 
   const handleFilter = (e: MouseEvent<HTMLButtonElement>) => {
-    if (e.currentTarget.name === 'all') {
-      setFilter(null);
-    } else {
-      setFilter(e.currentTarget.name);
-    }
+    const { name } = e.currentTarget;
+    setFilter(name === 'all' ? null : name);
     setOpen(false);
   };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant={'flat'} size={'sm'}>
+        <Button variant="flat" size="sm">
           <FilterIcon />
           Filter
         </Button>
       </PopoverTrigger>
       <PopoverContent align="start" className="w-fit p-2">
         <div className="flex flex-col gap-2">
-          <Button
-            name="all"
-            size={'sm'}
-            variant={'flat'}
-            onClick={handleFilter}
-          >
-            All
-          </Button>
-          <Button
-            size={'sm'}
-            name="completed"
-            variant={'flat'}
-            onClick={handleFilter}
-          >
-            Completed
-          </Button>
-          <Button
-            name="not"
-            size={'sm'}
-            variant={'flat'}
-            onClick={handleFilter}
-          >
-            Un Completed
-          </Button>
+          {['all', 'completed', 'not'].map((filterOption) => (
+            <Button
+              key={filterOption}
+              name={filterOption}
+              size="sm"
+              variant="flat"
+              onClick={handleFilter}
+            >
+              {filterOption.charAt(0).toUpperCase() + filterOption.slice(1)}
+            </Button>
+          ))}
         </div>
       </PopoverContent>
     </Popover>
   );
 };
 
-function ClearTodos() {
+const ClearTodos = () => {
   const { isPending, mutateAsync } = useClearTodos();
 
   const handleClick = () => {
     mutateAsync(undefined, {
-      onSuccess: () => {
-        toast.success('Cleared all tasks');
-      },
+      onSuccess: () => toast.success('Cleared all tasks'),
     });
   };
 
@@ -155,19 +142,20 @@ function ClearTodos() {
       Clear Tasks
     </button>
   );
-}
+};
 
-export function TodoList() {
-  const [filter, _] = useQueryState('filter');
+export const TodoList = () => {
+  const [filter] = useQueryState('filter');
   const { data: todos, isPending } = useTodos();
 
-  if (isPending)
+  if (isPending) {
     return <LoadingIcon className="mx-auto my-8 size-5 fill-primary" />;
+  }
 
   const filteredTodos = todos?.filter((todo) => {
     if (filter === 'completed') return todo.completed;
     if (filter === 'not') return !todo.completed;
-    return true; // 'all' or undefined returns all todos
+    return true;
   });
 
   return (
@@ -180,9 +168,9 @@ export function TodoList() {
             aria-hidden
             willChange
             format={{ useGrouping: false }}
-            value={Number(filteredTodos?.length)}
-          />{' '}
-          Tasks
+            value={filteredTodos?.length || 0}
+          />
+          {' Tasks'}
         </h2>
       </div>
       <div className="flex flex-col gap-2">
@@ -191,9 +179,20 @@ export function TodoList() {
             Empty Tasks 🫡
           </p>
         ) : (
-          filteredTodos?.map((t) => <TodoItem key={t.id} {...t} />)
+          filteredTodos.map((task) => (
+            <motion.div
+              key={task.id}
+              layout
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.2 }}
+            >
+              <TodoItem {...task} />
+            </motion.div>
+          ))
         )}
       </div>
     </>
   );
-}
+};

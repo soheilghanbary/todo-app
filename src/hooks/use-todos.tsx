@@ -31,7 +31,7 @@ export const useAddTodo = () => {
         },
         ...oldTodos,
       ]);
-      toast.success('Todo added successfully');
+      toast.success('Task added successfully');
       return { previousTodos };
     },
     onError: (err, newTodo, context) => {
@@ -50,7 +50,7 @@ export const useDeleteTodo = () => {
       qc.setQueryData(['todos'], (oldTodos: any) =>
         oldTodos?.filter((todo: any) => todo.id !== id),
       );
-      toast.success('Todo deleted successfully');
+      toast.success('Task deleted successfully');
       return { previousTodos };
     },
     onError: (err, id, context) => {
