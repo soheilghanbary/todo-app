@@ -16,7 +16,7 @@ import { cn, fromNow } from '@/lib/utils';
 import NumberFlow from '@number-flow/react';
 import type { Task } from '@prisma/client';
 import { FilterIcon, Trash2Icon } from 'lucide-react';
-import { motion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { useQueryState } from 'nuqs';
 import { type MouseEvent, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -179,18 +179,20 @@ export const TodoList = () => {
             Empty Tasks 🫡
           </p>
         ) : (
-          filteredTodos.map((task) => (
-            <motion.div
-              key={task.id}
-              layout
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.2 }}
-            >
-              <TodoItem {...task} />
-            </motion.div>
-          ))
+          <AnimatePresence>
+            {filteredTodos.map((task) => (
+              <motion.div
+                key={task.id}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.15 }}
+              >
+                <TodoItem {...task} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         )}
       </div>
     </>
