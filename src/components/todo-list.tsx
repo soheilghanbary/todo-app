@@ -106,7 +106,7 @@ const FilterTodo = () => {
       </PopoverTrigger>
       <PopoverContent align="start" className="w-fit p-2">
         <div className="flex flex-col gap-2">
-          {['all', 'completed', 'not'].map((filterOption) => (
+          {['all', 'completed', 'active'].map((filterOption) => (
             <Button
               key={filterOption}
               name={filterOption}
@@ -154,7 +154,7 @@ export const TodoList = () => {
 
   const filteredTodos = todos?.filter((todo) => {
     if (filter === 'completed') return todo.completed;
-    if (filter === 'not') return !todo.completed;
+    if (filter === 'active') return !todo.completed;
     return true;
   });
 
