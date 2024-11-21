@@ -1,11 +1,8 @@
 import { auth } from '@/server/auth';
-import { Github } from 'lucide-react';
 import Link from 'next/link';
-import { AuthModal } from './auth-modal';
-import { ModeToggle } from './common/mode-toggle';
-import { buttonVariants } from './ui/button';
-import { UserProfile } from './user-profile';
 import { AddTodo } from './add-todo';
+import { AuthModal } from './auth-modal';
+import { UserProfile } from './user-profile';
 
 const Logo = () => (
   <Link href={'/'} className="flex items-center gap-1">
@@ -20,8 +17,14 @@ export async function Header() {
       <nav className="container flex items-center justify-between gap-4 px-4 py-2">
         <Logo />
         <div className="flex items-center gap-4">
-          <AddTodo />
-          {session ? <UserProfile {...session.user} /> : <AuthModal />}
+          {session ? (
+            <>
+              <AddTodo />
+              <UserProfile {...session.user} />
+            </>
+          ) : (
+            <AuthModal />
+          )}
         </div>
       </nav>
     </header>
