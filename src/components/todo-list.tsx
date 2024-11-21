@@ -65,7 +65,7 @@ const DeleteTodo = ({ id }: { id: string }) => {
 };
 
 const TodoItem = ({ id, title, completed, createdAt }: Task) => (
-  <div className="rounded-md border bg-muted/40 p-2 shadow-sm">
+  <div className="rounded-md border bg-muted/20 p-2">
     <div className="flex flex-col gap-2">
       <label
         htmlFor={id}
@@ -123,7 +123,7 @@ const FilterTodo = () => {
   );
 };
 
-const ClearTodos = () => {
+const ClearTodos = ({ todos = 0 }) => {
   const { isPending, mutateAsync } = useClearTodos();
 
   const handleClick = () => {
@@ -136,13 +136,21 @@ const ClearTodos = () => {
     <button
       type="button"
       className="text-[10px] text-muted-foreground"
-      disabled={isPending}
+      disabled={isPending || todos === 0}
       onClick={handleClick}
     >
       Clear Tasks
     </button>
   );
 };
+
+const EmptyTasks = () => (
+  <div className="py-8">
+    <p className="my-4 text-center text-foreground/80 text-sm lg:text-lg">
+      🫡 Empty Tasks
+    </p>
+  </div>
+);
 
 export const TodoList = () => {
   const [filter] = useQueryState('filter');
@@ -159,10 +167,10 @@ export const TodoList = () => {
   });
 
   return (
-    <>
+    <div className="grid gap-4">
       <div className="flex items-center justify-between gap-2">
         <FilterTodo />
-        <ClearTodos />
+        <ClearTodos todos={filteredTodos?.length} />
         <h2 className="text-right font-medium text-sm">
           <NumberFlow
             aria-hidden
@@ -175,9 +183,7 @@ export const TodoList = () => {
       </div>
       <div className="flex flex-col gap-2">
         {!filteredTodos?.length ? (
-          <p className="my-4 text-center text-foreground/80 text-sm">
-            Empty Tasks 🫡
-          </p>
+          <EmptyTasks />
         ) : (
           <AnimatePresence>
             {filteredTodos.map((task) => (
@@ -195,6 +201,6 @@ export const TodoList = () => {
           </AnimatePresence>
         )}
       </div>
-    </>
+    </div>
   );
 };

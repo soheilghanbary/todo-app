@@ -26,7 +26,7 @@ import { Button } from './ui/button';
 const TriggerButton = (
   <Button className="w-full max-w-md">
     <PlusCircleIcon />
-    Add Task
+    Create Task
   </Button>
 );
 
