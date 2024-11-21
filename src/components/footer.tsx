@@ -1,6 +1,6 @@
 export function Footer() {
   return (
-    <footer className="sticky bottom-0 flex items-center justify-center border-t bg-background/80 py-2 backdrop-blur">
+    <footer className="sticky bottom-0 z-40 flex items-center justify-center border-border/40 border-t bg-background/80 py-2 backdrop-blur">
       <p className="text-muted-foreground text-xs">
         Developed by{' '}
         <a

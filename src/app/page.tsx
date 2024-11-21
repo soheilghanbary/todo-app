@@ -10,9 +10,6 @@ export default async function Page() {
 
   return (
     <div className="mx-auto max-w-md">
-      <h1 className="mb-4 text-center font-black text-2xl lg:text-3xl">
-        Add Todo
-      </h1>
       <div className="grid gap-4">
         <AddTodo />
         <TodoList />
