@@ -1,9 +1,9 @@
 import { Label } from '@/components/ui/label';
 import { useCharacterLimit } from '@/hooks/use-character-limit';
 import { generateId } from '@/lib/utils';
-import { Input } from './ui/input';
+import { Input } from '../ui/input';
 
-export const TaskForm = ({
+export const TodoForm = ({
   onSubmit,
   isPending,
   maxLength = 30,

@@ -1,6 +1,6 @@
 import { auth } from '@/server/auth';
 import Link from 'next/link';
-import { AddTodo } from './add-todo';
+import { TodoModal } from './Todo/TodoModal';
 import { AuthModal } from './auth-modal';
 import { UserProfile } from './user-profile';
 
@@ -19,7 +19,7 @@ export async function Header() {
         <div className="flex items-center gap-4">
           {session ? (
             <>
-              <AddTodo />
+              <TodoModal />
               <UserProfile {...session.user} />
             </>
           ) : (

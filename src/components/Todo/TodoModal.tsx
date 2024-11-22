@@ -1,5 +1,4 @@
 'use client';
-
 import {
   Dialog,
   DialogContent,
@@ -20,8 +19,8 @@ import { useMediaQuery } from '@/hooks/use-media-query';
 import { useAddTodo } from '@/hooks/use-todos';
 import { PlusCircleIcon } from 'lucide-react';
 import { useState } from 'react';
-import { TaskForm } from './task-form';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
+import { TodoForm } from './TodoForm';
 
 const TriggerButton = (
   <Button className="w-full max-w-md">
@@ -30,7 +29,7 @@ const TriggerButton = (
   </Button>
 );
 
-export function AddTodo() {
+export function TodoModal() {
   const isDesktop = useMediaQuery('(min-width: 768px)');
   const [open, setOpen] = useState(false);
   const { mutateAsync, isPending } = useAddTodo();
@@ -50,7 +49,7 @@ export function AddTodo() {
         <DialogHeader>
           <DialogTitle>Add Task</DialogTitle>
         </DialogHeader>
-        <TaskForm
+        <TodoForm
           isPending={isPending}
           onSubmit={handleAddTodo}
           onClose={() => setOpen(false)}
@@ -65,7 +64,7 @@ export function AddTodo() {
           <DrawerTitle>Add Task</DrawerTitle>
         </DrawerHeader>
         <div className="p-4">
-          <TaskForm
+          <TodoForm
             onSubmit={handleAddTodo}
             isPending={isPending}
             onClose={() => setOpen(false)}
