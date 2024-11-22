@@ -1,5 +1,5 @@
+import { TodoList } from '@/components/Todo/TodoList';
 import { Hero } from '@/components/hero';
-import { TodoList } from '@/components/todo-list';
 import { auth } from '@/server/auth';
 
 export default async function Page() {
