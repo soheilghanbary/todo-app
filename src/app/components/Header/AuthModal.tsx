@@ -22,9 +22,9 @@ import { onSignIn } from '@/server/actions/auth.action';
 import { LogInIcon } from 'lucide-react';
 import type React from 'react';
 import { useState, useTransition } from 'react';
-import { LoadingIcon } from '../common/icons';
-import { TextLine } from '../common/text-line';
-import { Button } from '../ui/button';
+import { LoadingIcon } from '../../../components/common/icons';
+import { TextLine } from '../../../components/common/text-line';
+import { Button } from '../../../components/ui/button';
 
 const Auth = () => {
   const [pending, mutate] = useTransition();

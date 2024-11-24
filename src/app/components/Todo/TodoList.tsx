@@ -3,7 +3,6 @@ import { useTodos } from '@/hooks/use-todos';
 import NumberFlow from '@number-flow/react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useQueryState } from 'nuqs';
-import { TodoClear } from './TodoClear';
 import { TodoEmpty } from './TodoEmpty';
 import { TodoFilter } from './TodoFilter';
 import { TodoItem } from './TodoItem';

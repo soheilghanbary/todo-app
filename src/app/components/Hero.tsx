@@ -1,5 +1,5 @@
+import { Button } from '@/components/ui/button';
 import { RocketIcon } from 'lucide-react';
-import { Button } from './ui/button';
 
 export function Hero() {
   return (

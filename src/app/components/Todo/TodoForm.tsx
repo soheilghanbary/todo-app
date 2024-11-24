@@ -1,7 +1,7 @@
 import { Label } from '@/components/ui/label';
 import { useCharacterLimit } from '@/hooks/use-character-limit';
 import { generateId } from '@/lib/utils';
-import { Input } from '../ui/input';
+import { Input } from '@/components/ui/input';
 
 export const TodoForm = ({
   onSubmit,

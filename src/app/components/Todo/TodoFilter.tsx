@@ -7,7 +7,7 @@ import {
 import { FilterIcon } from 'lucide-react';
 import { useQueryState } from 'nuqs';
 import { type MouseEvent, useState } from 'react';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 
 export const TodoFilter = () => {
   const [open, setOpen] = useState(false);

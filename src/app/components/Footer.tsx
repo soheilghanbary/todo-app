@@ -1,6 +1,6 @@
+import { ModeToggle } from '@/components/common/mode-toggle';
+import { buttonVariants } from '@/components/ui/button';
 import { Github } from 'lucide-react';
-import { ModeToggle } from './common/mode-toggle';
-import { buttonVariants } from './ui/button';
 
 export function Footer() {
   return (

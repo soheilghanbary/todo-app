@@ -1,8 +1,8 @@
 'use client';
+import { LoadingIcon } from '@/components/common/icons';
+import { Button } from '@/components/ui/button';
 import { useDeleteTodo } from '@/hooks/use-todos';
-import { Button } from '../ui/button';
 import { Trash2Icon } from 'lucide-react';
-import { LoadingIcon } from '../common/icons';
 
 export const TodoRemove = ({ id }: { id: string }) => {
   const { mutateAsync, isPending } = useDeleteTodo();

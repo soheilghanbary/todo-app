@@ -1,4 +1,5 @@
 'use client';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -19,7 +20,6 @@ import { useMediaQuery } from '@/hooks/use-media-query';
 import { useAddTodo } from '@/hooks/use-todos';
 import { PlusCircleIcon } from 'lucide-react';
 import { useState } from 'react';
-import { Button } from '../ui/button';
 import { TodoForm } from './TodoForm';
 
 const TriggerButton = (
