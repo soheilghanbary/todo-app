@@ -16,8 +16,8 @@ export const TodoItem = ({ id, title, completed, createdAt }: Task) => (
         <TodoDone id={id} completed={completed} />
         <p>{title}</p>
       </label>
-      <div className="flex items-center justify-between gap-2">
-        <p className="flex-1 text-muted-foreground text-xs">
+      <div className="flex items-end justify-between gap-2">
+        <p className="flex-1 text-[10px] text-muted-foreground">
           {fromNow(createdAt)}
         </p>
         <TodoRemove id={id} />

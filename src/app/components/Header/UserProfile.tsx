@@ -1,16 +1,16 @@
 'use client';
+import { LoadingIcon } from '@/components/common/icons';
+import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { Separator } from '@/components/ui/separator';
 import { onSignOut } from '@/server/actions/auth.action';
 import { LogOut, MailIcon } from 'lucide-react';
 import { useTransition } from 'react';
-import { LoadingIcon } from '../../../components/common/icons';
-import { Avatar, AvatarImage } from '../../../components/ui/avatar';
-import { Button } from '../../../components/ui/button';
-import { Separator } from '../../../components/ui/separator';
 
 export const UserProfile = (props: {
   name: string;
@@ -26,7 +26,7 @@ export const UserProfile = (props: {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Avatar className="border border-border/40 bg-muted/50 shadow">
+        <Avatar className="border bg-background shadow">
           <AvatarImage src={props.image} />
         </Avatar>
       </PopoverTrigger>

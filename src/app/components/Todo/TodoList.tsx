@@ -3,6 +3,7 @@ import { useTodos } from '@/hooks/use-todos';
 import NumberFlow from '@number-flow/react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useQueryState } from 'nuqs';
+import { TodoClearFilters } from './TodoClearFilters';
 import { TodoEmpty } from './TodoEmpty';
 import { TodoFilter } from './TodoFilter';
 import { TodoItem } from './TodoItem';
@@ -26,8 +27,9 @@ export const TodoList = () => {
     <div className="grid gap-4">
       <div className="flex items-center justify-between gap-2">
         <TodoFilter />
+        <TodoClearFilters />
         {/* <TodoClear todos={filteredTodos?.length} /> */}
-        <h2 className="text-right font-medium text-sm">
+        <h2 className="flex-1 text-right font-medium text-sm">
           <NumberFlow
             aria-hidden
             willChange

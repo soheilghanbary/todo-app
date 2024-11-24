@@ -5,8 +5,7 @@ import { Input } from '@/components/ui/input';
 
 export const TodoForm = ({
   onSubmit,
-  isPending,
-  maxLength = 30,
+  maxLength = 45,
   clearOnSubmit = true,
   onClose,
 }: {

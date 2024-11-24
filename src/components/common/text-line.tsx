@@ -4,9 +4,7 @@ export const TextLine = ({ text = '' }) => (
       <span className="w-full border-t" />
     </div>
     <div className="relative flex justify-center text-xs uppercase">
-      <span className="bg-card px-2 text-muted-foreground md:bg-card">
-        {text}
-      </span>
+      <span className="bg-card px-2 text-muted-foreground">{text}</span>
     </div>
   </div>
 );
