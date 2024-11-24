@@ -4,7 +4,7 @@ import { buttonVariants } from './ui/button';
 
 export function Footer() {
   return (
-    <footer className="border-border/40 border-t">
+    <footer className="border-t bg-card">
       <div className="container mx-auto flex items-center justify-between px-4 py-2">
         <p className="text-muted-foreground text-xs">
           Developed by{' '}

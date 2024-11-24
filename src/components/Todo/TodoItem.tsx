@@ -5,8 +5,8 @@ import { TodoDone } from './TodoDone';
 import { TodoRemove } from './TodoRemove';
 
 export const TodoItem = ({ id, title, completed, createdAt }: Task) => (
-  <div className="rounded-md border p-2">
-    <div className="flex flex-col gap-2">
+  <div className="rounded-md border bg-card p-2 shadow-sm">
+    <div className="flex flex-col">
       <label
         htmlFor={id}
         className={cn('flex w-fit cursor-pointer items-center gap-2 text-sm', {

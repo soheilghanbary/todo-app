@@ -27,7 +27,7 @@ export const TodoList = () => {
     <div className="grid gap-4">
       <div className="flex items-center justify-between gap-2">
         <TodoFilter />
-        <TodoClear todos={filteredTodos?.length} />
+        {/* <TodoClear todos={filteredTodos?.length} /> */}
         <h2 className="text-right font-medium text-sm">
           <NumberFlow
             aria-hidden

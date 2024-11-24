@@ -1,6 +1,6 @@
 import '@/assets/app.css';
-import { Footer } from '@/components/footer';
-import { Header } from '@/components/header';
+import { Footer } from '@/components/Footer';
+import { Header } from '@/components/Header';
 import Providers from '@/components/providers';
 import { siteConfig } from '@/config/site';
 import type { Metadata } from 'next';

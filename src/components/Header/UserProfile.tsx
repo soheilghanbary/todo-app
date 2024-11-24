@@ -7,10 +7,10 @@ import {
 import { onSignOut } from '@/server/actions/auth.action';
 import { LogOut, MailIcon } from 'lucide-react';
 import { useTransition } from 'react';
-import { LoadingIcon } from './common/icons';
-import { Avatar, AvatarImage } from './ui/avatar';
-import { Button } from './ui/button';
-import { Separator } from './ui/separator';
+import { LoadingIcon } from '../common/icons';
+import { Avatar, AvatarImage } from '../ui/avatar';
+import { Button } from '../ui/button';
+import { Separator } from '../ui/separator';
 
 export const UserProfile = (props: {
   name: string;
