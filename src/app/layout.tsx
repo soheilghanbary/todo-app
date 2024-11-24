@@ -9,7 +9,6 @@ import type { PropsWithChildren } from 'react';
 
 const font = Inter({
   subsets: ['latin'],
-  variable: '--font-inter',
   weight: ['400', '500', '600', '700', '900'],
 });
 
