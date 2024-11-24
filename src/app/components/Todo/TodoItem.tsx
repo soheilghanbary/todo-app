@@ -5,7 +5,7 @@ import { TodoDone } from './TodoDone';
 import { TodoRemove } from './TodoRemove';
 
 export const TodoItem = ({ id, title, completed, createdAt }: Task) => (
-  <div className="rounded-md border bg-card p-2 shadow-sm">
+  <div className="rounded-md bg-card p-2 shadow">
     <div className="flex flex-col">
       <label
         htmlFor={id}
