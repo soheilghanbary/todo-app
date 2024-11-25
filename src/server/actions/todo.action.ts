@@ -1,4 +1,5 @@
 'use server';
+import type { Task } from '@prisma/client';
 import { auth } from '../auth';
 import { prisma } from '../db';
 
@@ -26,10 +27,10 @@ export async function deleteTodo(id: string) {
   });
 }
 
-export async function updateTodo(id: string, title: string) {
+export async function updateTodo(task: Pick<Task, 'id' | 'title'>) {
   return await prisma.task.update({
-    where: { id },
-    data: { title },
+    where: { id: task.id },
+    data: { title: task.title },
   });
 }
 

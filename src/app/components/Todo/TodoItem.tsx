@@ -3,6 +3,7 @@ import { cn, fromNow } from '@/lib/utils';
 import type { Task } from '@prisma/client';
 import { TodoDone } from './TodoDone';
 import { TodoRemove } from './TodoRemove';
+import { TodoEdit } from './TodoEdit';
 
 export const TodoItem = ({ id, title, completed, createdAt }: Task) => (
   <div className="rounded-md bg-card p-2 shadow">
@@ -20,6 +21,7 @@ export const TodoItem = ({ id, title, completed, createdAt }: Task) => (
         <p className="flex-1 text-[10px] text-muted-foreground">
           {fromNow(createdAt)}
         </p>
+        <TodoEdit id={id} title={title} />
         <TodoRemove id={id} />
       </div>
     </div>

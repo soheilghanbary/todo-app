@@ -1,4 +1,7 @@
 'use client';
+import { GithubIcon, GoogleIcon, LoadingIcon } from '@/components/common/icons';
+import { TextLine } from '@/components/common/text-line';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -22,9 +25,6 @@ import { onSignIn } from '@/server/actions/auth.action';
 import { LogInIcon } from 'lucide-react';
 import type React from 'react';
 import { useState, useTransition } from 'react';
-import { LoadingIcon } from '../../../components/common/icons';
-import { TextLine } from '../../../components/common/text-line';
-import { Button } from '../../../components/ui/button';
 
 const Auth = () => {
   const [pending, mutate] = useTransition();
@@ -43,19 +43,30 @@ const Auth = () => {
 
   return (
     <div className="grid grid-cols-2 gap-4">
-      <Button name="github" disabled={pending} onClick={handleLogin}>
-        {loading.github && (
-          <LoadingIcon className="size-4 fill-primary-foreground" />
+      <Button
+        name="github"
+        disabled={pending}
+        variant={'secondary'}
+        onClick={handleLogin}
+      >
+        {loading.github ? (
+          <LoadingIcon className="fill-primary" />
+        ) : (
+          <GithubIcon />
         )}
         GitHub
       </Button>
       <Button
         name="google"
         disabled={pending}
-        variant={'outline'}
+        variant={'secondary'}
         onClick={handleLogin}
       >
-        {loading.google && <LoadingIcon className="size-4 fill-primary" />}
+        {loading.google ? (
+          <LoadingIcon className="fill-primary" />
+        ) : (
+          <GoogleIcon />
+        )}
         Google
       </Button>
     </div>

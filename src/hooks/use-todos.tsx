@@ -4,6 +4,7 @@ import {
   deleteTodo,
   doneTodos,
   getTodos,
+  updateTodo,
 } from '@/server/actions/todo.action';
 import type { Task } from '@prisma/client';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -92,6 +93,31 @@ export const useClearTodos = () => {
     },
     onError: (err, variables, context) => {
       qc.setQueryData(['todos'], context?.previousTodos);
+    },
+  });
+};
+
+export const useUpdateTodo = () => {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (updatedTodo: Pick<Task, 'id' | 'title'>) =>
+      updateTodo(updatedTodo),
+    onMutate: async (updatedTodo) => {
+      await qc.cancelQueries({ queryKey: ['todos'] });
+      const previousTodos = qc.getQueryData(['todos']);
+
+      qc.setQueryData(['todos'], (oldTodos: any) =>
+        oldTodos?.map((todo: any) =>
+          todo.id === updatedTodo.id ? { ...todo, ...updatedTodo } : todo,
+        ),
+      );
+
+      toast.success('Task updated successfully');
+      return { previousTodos };
+    },
+    onError: (err, updatedTodo, context) => {
+      qc.setQueryData(['todos'], context?.previousTodos);
+      toast.error('Failed to update task');
     },
   });
 };
