@@ -6,7 +6,7 @@ import { TodoEdit } from './TodoEdit';
 import { TodoRemove } from './TodoRemove';
 
 export const TodoItem = ({ id, title, completed, createdAt }: Task) => (
-  <div className="rounded-md border bg-card p-2 shadow-sm">
+  <div className="rounded-md border bg-card p-2">
     <div className="flex flex-col">
       <label
         htmlFor={id}

@@ -1,7 +1,8 @@
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useCharacterLimit } from '@/hooks/use-character-limit';
 import { generateId } from '@/lib/utils';
-import { Input } from '@/components/ui/input';
 
 export const TodoForm = ({
   onSubmit,
@@ -64,6 +65,7 @@ export const TodoForm = ({
           {characterCount}/{limit}
         </div>
       </div>
+      <Button onClick={handleSubmit} className='mt-1'>Add Task</Button>
     </div>
   );
 };
