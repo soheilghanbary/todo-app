@@ -51,7 +51,7 @@ export const UserProfile = (props: {
           variant={'destructive'}
         >
           {pending ? (
-            <LoadingIcon className="fill-primary-foreground" />
+            <LoadingIcon className="fill-destructive-foreground" />
           ) : (
             <LogOut />
           )}
