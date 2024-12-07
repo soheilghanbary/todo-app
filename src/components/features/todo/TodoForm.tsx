@@ -4,7 +4,7 @@ import { Label } from '@/components/ui/label';
 import { useCharacterLimit } from '@/hooks/use-character-limit';
 import { generateId } from '@/lib/utils';
 
-export const TodoForm = ({
+export default ({
   onSubmit,
   maxLength = 45,
   clearOnSubmit = true,
@@ -65,7 +65,9 @@ export const TodoForm = ({
           {characterCount}/{limit}
         </div>
       </div>
-      <Button onClick={handleSubmit} className='mt-1'>Add Task</Button>
+      <Button onClick={handleSubmit} className="mt-1">
+        Add Task
+      </Button>
     </div>
   );
 };

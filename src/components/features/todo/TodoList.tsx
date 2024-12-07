@@ -3,13 +3,13 @@ import { useTodos } from '@/hooks/use-todos';
 import NumberFlow from '@number-flow/react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useQueryState } from 'nuqs';
-import { TodoClearFilters } from './TodoClearFilters';
-import { TodoEmpty } from './TodoEmpty';
-import { TodoFilter } from './TodoFilter';
-import { TodoItem } from './TodoItem';
-import { TodoLoading } from './TodoLoading';
+import TodoClearFilters from './TodoClearFilters';
+import TodoEmpty from './TodoEmpty';
+import TodoFilter from './TodoFilter';
+import TodoItem from './TodoItem';
+import TodoLoading from './TodoLoading';
 
-export const TodoList = () => {
+export default () => {
   const [filter] = useQueryState('filter');
   const { data: todos, isPending } = useTodos();
 
@@ -28,7 +28,6 @@ export const TodoList = () => {
       <div className="flex items-center justify-between gap-2">
         <TodoFilter />
         <TodoClearFilters />
-        {/* <TodoClear todos={filteredTodos?.length} /> */}
         <h2 className="flex-1 text-right font-medium text-sm">
           <NumberFlow
             aria-hidden

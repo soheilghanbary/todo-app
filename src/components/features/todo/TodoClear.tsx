@@ -2,7 +2,7 @@
 import { useClearTodos } from '@/hooks/use-todos';
 import toast from 'react-hot-toast';
 
-export const TodoClear = ({ todos = 0 }) => {
+export default ({ todos = 0 }) => {
   const { isPending, mutateAsync } = useClearTodos();
 
   const handleClick = () => {

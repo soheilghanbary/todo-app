@@ -15,9 +15,14 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useCharacterLimit } from '@/hooks/use-character-limit';
 import { useMediaQuery } from '@/hooks/use-media-query';
+import { useUpdateTodo } from '@/hooks/use-todos';
 import { EditIcon } from 'lucide-react';
 import { useState } from 'react';
+import type { EditTaskFormProps, UpdateTodoProps } from './types';
 
 const TriggerButton = (
   <Button
@@ -29,13 +34,7 @@ const TriggerButton = (
   </Button>
 );
 
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useCharacterLimit } from '@/hooks/use-character-limit';
-import { useUpdateTodo } from '@/hooks/use-todos';
-import type { EditTaskFormProps, UpdateTodoProps } from './types';
-
-export const TaskForm = ({
+const TaskForm = ({
   onSubmit,
   maxLength = 45,
   clearOnSubmit = true,
@@ -90,7 +89,7 @@ export const TaskForm = ({
   );
 };
 
-export function TodoEdit(props: UpdateTodoProps) {
+export default (props: UpdateTodoProps) => {
   const isDesktop = useMediaQuery('(min-width: 768px)');
   const [open, setOpen] = useState(false);
   const { mutateAsync, isPending } = useUpdateTodo();
@@ -137,4 +136,4 @@ export function TodoEdit(props: UpdateTodoProps) {
       </DrawerContent>
     </Drawer>
   );
-}
+};

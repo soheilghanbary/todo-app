@@ -2,7 +2,7 @@ import { ModeToggle } from '@/components/common/mode-toggle';
 import { buttonVariants } from '@/components/ui/button';
 import { Github } from 'lucide-react';
 
-export function Footer() {
+export default () => {
   return (
     <footer className="border-t bg-card">
       <div className="container mx-auto flex items-center justify-between px-4 py-2">
@@ -31,4 +31,4 @@ export function Footer() {
       </div>
     </footer>
   );
-}
+};

@@ -1,11 +1,11 @@
-import { Header } from '@/app/components/Header';
 import '@/assets/app.css';
+import Footer from '@/components/layouts/Footer';
+import Header from '@/components/layouts/Header';
 import Providers from '@/components/providers';
 import { siteConfig } from '@/config/site';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import type { PropsWithChildren } from 'react';
-import { Footer } from './components/Footer';
 
 const font = Inter({
   subsets: ['latin'],

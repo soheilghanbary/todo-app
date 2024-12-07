@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useDeleteTodo } from '@/hooks/use-todos';
 import { Trash2Icon } from 'lucide-react';
 
-export const TodoRemove = ({ id }: { id: string }) => {
+export default ({ id }: { id: string }) => {
   const { mutateAsync, isPending } = useDeleteTodo();
 
   const handleDelete = async () => {

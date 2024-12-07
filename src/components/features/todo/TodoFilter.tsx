@@ -1,16 +1,16 @@
 'use client';
+import { Button } from '@/components/ui/button';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { cn } from '@/lib/utils';
 import { CheckIcon, FilterIcon } from 'lucide-react';
 import { useQueryState } from 'nuqs';
 import { type MouseEvent, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 
-export const TodoFilter = () => {
+export default () => {
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useQueryState('filter');
 

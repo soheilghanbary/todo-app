@@ -1,10 +1,10 @@
+import TodoModal from '@/components/features/todo/TodoModal';
 import { auth } from '@/server/auth';
-import { TodoModal } from '../Todo/TodoModal';
 import { AuthModal } from './AuthModal';
-import { UserProfile } from './UserProfile';
 import { Logo } from './Logo';
+import { UserProfile } from './UserProfile';
 
-export async function Header() {
+export default async () => {
   const session = await auth();
   return (
     <header className="sticky top-0 z-50 border-b bg-card">
@@ -23,4 +23,4 @@ export async function Header() {
       </nav>
     </header>
   );
-}
+};

@@ -1,11 +1,11 @@
 'use client';
+import TodoDone from '@/components/features/todo/TodoDone';
 import { cn, fromNow } from '@/lib/utils';
 import type { Task } from '@prisma/client';
-import { TodoDone } from './TodoDone';
-import { TodoEdit } from './TodoEdit';
-import { TodoRemove } from './TodoRemove';
+import TodoEdit from './TodoEdit';
+import TodoRemove from './TodoRemove';
 
-export const TodoItem = ({ id, title, completed, createdAt }: Task) => (
+export default ({ id, title, completed, createdAt }: Task) => (
   <div className="rounded-md border bg-card p-2">
     <div className="flex flex-col">
       <label

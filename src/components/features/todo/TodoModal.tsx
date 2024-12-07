@@ -20,7 +20,7 @@ import { useMediaQuery } from '@/hooks/use-media-query';
 import { useAddTodo } from '@/hooks/use-todos';
 import { PlusCircleIcon } from 'lucide-react';
 import { useState } from 'react';
-import { TodoForm } from './TodoForm';
+import TodoForm from './TodoForm';
 
 const TriggerButton = (
   <Button className="w-full max-w-md">
@@ -29,7 +29,7 @@ const TriggerButton = (
   </Button>
 );
 
-export function TodoModal() {
+export default () => {
   const isDesktop = useMediaQuery('(min-width: 768px)');
   const [open, setOpen] = useState(false);
   const { mutateAsync, isPending } = useAddTodo();
@@ -78,4 +78,4 @@ export function TodoModal() {
       </DrawerContent>
     </Drawer>
   );
-}
+};
