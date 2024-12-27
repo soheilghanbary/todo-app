@@ -9,7 +9,7 @@ import TodoFilter from './TodoFilter';
 import TodoItem from './TodoItem';
 import TodoLoading from './TodoLoading';
 
-export default () => {
+const TodoList = () => {
   const [filter] = useQueryState('filter');
   const { data: todos, isPending } = useTodos();
 
@@ -18,10 +18,17 @@ export default () => {
   }
 
   const filteredTodos = todos?.filter((todo) => {
-    if (filter === 'completed') return todo.completed;
-    if (filter === 'active') return !todo.completed;
-    return true;
+    switch (filter) {
+      case 'completed':
+        return todo.completed;
+      case 'active':
+        return !todo.completed;
+      default:
+        return true;
+    }
   });
+
+  const tasksCount = filteredTodos?.length || 0;
 
   return (
     <div className="grid gap-4">
@@ -33,17 +40,17 @@ export default () => {
             aria-hidden
             willChange
             format={{ useGrouping: false }}
-            value={filteredTodos?.length || 0}
+            value={tasksCount}
           />
           {' Tasks'}
         </h2>
       </div>
       <div className="flex flex-col gap-2">
-        {!filteredTodos?.length ? (
+        {tasksCount === 0 ? (
           <TodoEmpty />
         ) : (
           <AnimatePresence>
-            {filteredTodos.map((task) => (
+            {filteredTodos?.map((task) => (
               <motion.div
                 key={task.id}
                 layout
@@ -61,3 +68,5 @@ export default () => {
     </div>
   );
 };
+
+export default TodoList;
